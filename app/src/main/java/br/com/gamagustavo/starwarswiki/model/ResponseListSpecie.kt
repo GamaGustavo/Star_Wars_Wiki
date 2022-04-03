@@ -1,5 +1,8 @@
 package br.com.gamagustavo.starwarswiki.model
 
 data class ResponseListSpecie(
-    val swapiResponseList: ResponseListGeneric<SpecieModel>
+    val count: Int?,
+    val next: String?,
+    val previous: String?,
+    val results: List<SpecieModel>?
 )

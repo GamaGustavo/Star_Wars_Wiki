@@ -1,5 +1,8 @@
 package br.com.gamagustavo.starwarswiki.model
 
 data class ResponseListPlanet(
-    val swapiResponseList: ResponseListGeneric<PlanetModel>
+    val count: Int?,
+    val next: String?,
+    val previous: String?,
+    val results: List<PlanetModel>?
 )
