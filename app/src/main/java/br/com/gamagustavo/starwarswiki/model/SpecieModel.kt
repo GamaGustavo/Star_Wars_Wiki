@@ -1,5 +1,6 @@
 package br.com.gamagustavo.starwarswiki.model
 
+import br.com.gamagustavo.starwarswiki.database.entitys.Specie
 import com.google.gson.annotations.SerializedName
 
 
@@ -21,7 +22,7 @@ import com.google.gson.annotations.SerializedName
  * @param created string -- the ISO 8601 date format of the time that this resource was created.
  * @param edited string -- the ISO 8601 date format of the time that this resource was edited.
  * */
-data class SpecieModel(
+class SpecieModel(
     val name: String,
     val classification: String,
     val designation: String,
@@ -43,4 +44,29 @@ data class SpecieModel(
     val url: String,
     val created: String,
     val edited: String,
-)
+) {
+    fun specieModelToSpecie(): Specie {
+        val homeWold =
+            this.homeWorld.replace("https://swapi.dev/api/planets/", "")
+                .replace("/", "").toInt()
+        val specieId =
+            this.url.replace("https://swapi.dev/api/species/", "")
+                .replace("/", "").toInt()
+        return Specie(
+            specieId = specieId,
+            homeWorldId = homeWold,
+            edited = this.edited,
+            created = this.created,
+            url = this.url,
+            name = this.name,
+            averageHeight = this.averageHeight,
+            averageLifespan = this.averageLifespan,
+            classification = this.classification,
+            designation = this.designation,
+            eyeColors = this.eyeColors,
+            hairCcolors = this.hairColors,
+            language = this.language,
+            skincolors = this.skinColors,
+        )
+    }
+}

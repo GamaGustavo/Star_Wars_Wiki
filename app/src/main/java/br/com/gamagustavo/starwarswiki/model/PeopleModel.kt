@@ -1,5 +1,6 @@
 package br.com.gamagustavo.starwarswiki.model
 
+import br.com.gamagustavo.starwarswiki.database.entitys.People
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -20,26 +21,47 @@ import com.google.gson.annotations.SerializedName
  * @param url string -- the hypermedia URL of this resource.
  * @param created string -- the ISO 8601 date format of the time that this resource was created.
  * @param edited string -- the ISO 8601 date format of the time that this resource was edited.**/
-data class PeopleModel(
+class PeopleModel(
     val name: String,
-    @SerializedName(value = "birth_year")
-    val birthYear: String,
-    @SerializedName(value = "eye_color")
-    val eyeColor: String,
+    @SerializedName(value = "birth_year") val birthYear: String,
+    @SerializedName(value = "eye_color") val eyeColor: String,
     val height: String,
     val mass: String,
-    @SerializedName(value = "hair_color")
-    val hairColor: String,
-    @SerializedName(value = "skin_color")
-    val skinColor: String,
+    @SerializedName(value = "hair_color") val hairColor: String,
+    @SerializedName(value = "skin_color") val skinColor: String,
     val gender: String,
-    @SerializedName(value = "homeworld")
-    val homeWorld: String,
+    @SerializedName(value = "homeworld") val homeWorld: String,
     val films: List<String>,
     val starships: List<String>,
     val vehicles: List<String>,
     val species: List<String>,
     val url: String,
     val created: String,
-    val edited: String,
-)
+    val edited: String
+) {
+    fun peopleModelToPeple(): People {
+        val peopleId =
+            this.url.replace("https://swapi.dev/api/people/", "")
+                .replace("/", "").toInt()
+        val homeWold =
+            this.homeWorld.replace("https://swapi.dev/api/planets/", "")
+                .replace("/", "").toInt()
+        return People(
+            name = this.name,
+            birthYear = this.birthYear,
+            url = this.url,
+            edited = this.edited,
+            created = this.created,
+            gender = this.gender,
+            mass = this.mass,
+            height = this.height,
+            eyeColor = this.eyeColor,
+            hairColor = this.hairColor,
+            homeWorldId = homeWold,
+            peopleId = peopleId,
+            skinColor = this.skinColor
+        )
+    }
+}
+
+

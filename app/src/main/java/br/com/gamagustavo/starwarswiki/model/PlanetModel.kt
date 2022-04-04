@@ -1,5 +1,6 @@
 package br.com.gamagustavo.starwarswiki.model
 
+import br.com.gamagustavo.starwarswiki.database.entitys.Planet
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -19,7 +20,7 @@ import com.google.gson.annotations.SerializedName
  * @param edited string -- the ISO 8601 date format of the time that this resource was edited.
  */
 
-data class PlanetModel(
+class PlanetModel(
     val name: String,
     val diameter: String,
     @SerializedName(value = "rotation_period")
@@ -38,4 +39,25 @@ data class PlanetModel(
     val created: String,
     val edited: String,
 
-    )
+    ) {
+    fun planetModelToPlanet(): Planet {
+        val planetId =
+            this.url.replace("https://swapi.dev/api/planets/", "")
+                .replace("/", "").toInt()
+        return Planet(
+            planetId = planetId,
+            name = this.name,
+            diameter = this.diameter,
+            rotationPeriod = this.rotationPeriod,
+            orbitalPeriod = this.orbitalPeriod,
+            gravity = this.gravity,
+            population = this.population,
+            climate = this.climate,
+            terrain = this.terrain,
+            surfaceWater = this.surfaceWater,
+            url = this.url,
+            created = this.created,
+            edited = this.edited,
+        )
+    }
+}
