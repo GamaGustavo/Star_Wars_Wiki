@@ -6,7 +6,7 @@ import com.google.gson.Gson
 
 object PeopleWebClient {
 
-    private val path = "https://swapi.dev/api/people"
+    private const val path = "https://swapi.dev/api/people"
     private val gson = Gson()
 
     suspend fun getAllPeoples(): ResponseListPeople {

@@ -5,7 +5,7 @@ import br.com.gamagustavo.starwarswiki.model.SpecieModel
 import com.google.gson.Gson
 
 object SpecieWbeClient {
-    private val path = "https://swapi.dev/api/species"
+    private const val path = "https://swapi.dev/api/species"
     private val gson = Gson()
 
     suspend fun getAllSpecies(): ResponseListSpecie {

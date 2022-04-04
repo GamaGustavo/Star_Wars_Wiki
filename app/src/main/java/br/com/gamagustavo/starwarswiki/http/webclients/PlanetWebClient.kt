@@ -5,7 +5,7 @@ import br.com.gamagustavo.starwarswiki.model.ResponseListPlanet
 import com.google.gson.Gson
 
 object PlanetWebClient {
-    private val path = "https://swapi.dev/api/planets"
+    private const val path = "https://swapi.dev/api/planets"
     private val gson = Gson()
 
     suspend fun getAllPlanets(): ResponseListPlanet {
